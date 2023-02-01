@@ -1,7 +1,18 @@
 import { type NextPage } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
+  const handleClick = async () => {
+    document.cookie = "name=oeschger; SameSite=None; Secure";
+
+    console.log(document.cookie);
+
+    await router.push("/login");
+  };
+
   return (
     <>
       <Head>
@@ -19,7 +30,9 @@ const Home: NextPage = () => {
                 efficient and personalized communication. Try the ChartGPT
                 Powered Email App now!
               </p>
-              <button className="btn-primary btn">Get Started</button>
+              <button className="btn-primary btn" onClick={handleClick}>
+                Get Started
+              </button>
             </div>
           </div>
         </div>
