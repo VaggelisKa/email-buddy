@@ -1,14 +1,30 @@
-import { type NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+
+// eslint-disable-next-line @typescript-eslint/require-await
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const cookies = context.req.headers.cookie;
+
+  if (cookies && cookies.includes("isFirstTimeUser=false")) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+};
 
 const Home: NextPage = () => {
   const router = useRouter();
 
   const handleClick = async () => {
-    document.cookie = "name=oeschger; SameSite=None; Secure";
-
-    console.log(document.cookie);
+    document.cookie = "isFirstTimeUser=false; SameSite=None; Secure";
 
     await router.push("/login");
   };
