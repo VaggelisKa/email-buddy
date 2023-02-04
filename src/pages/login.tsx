@@ -1,17 +1,18 @@
+import React from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
 import { loginRequest } from "@/utils";
 import { Layout } from "@/components";
-import { useEffect } from "react";
+import { InteractionStatus } from "@azure/msal-browser";
 
 const Login: NextPage = () => {
   const { instance, inProgress } = useMsal();
   const isAuthenticated = useIsAuthenticated();
   const router = useRouter();
 
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       if (isAuthenticated) {
         await router.push("/emails?provider=microsoft");
@@ -41,13 +42,13 @@ const Login: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        {!isAuthenticated && !inProgress && (
+        {!isAuthenticated && (
           <div className="card flex h-full w-96 flex-col items-center bg-base-100 p-16 shadow-xl">
             <h1 className="pb-6 text-4xl font-medium">Login</h1>
             <div className="flex flex-col gap-4">
               <button
                 className={`btn-primary btn-wide btn ${
-                  inProgress === "login" ? "loading" : ""
+                  inProgress === InteractionStatus.Login ? "loading" : ""
                 }`}
                 onClick={handleMsLogin}
               >
