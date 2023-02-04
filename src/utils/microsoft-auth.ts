@@ -5,7 +5,7 @@ export const msalConfig: Configuration = {
     clientId: "a80764aa-c133-432f-ac10-ef4b346d2d5b",
     authority:
       "https://login.microsoftonline.com/85368a70-b60b-474c-948b-0641cbd0b910",
-    redirectUri: "/emails",
+    redirectUri: "/emails?provider=microsoft",
     postLogoutRedirectUri: "/login",
   },
   cache: {
