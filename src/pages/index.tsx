@@ -33,7 +33,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Email Buddy</title>
+        <title>Welcome - EmailBuddy</title>
         <meta name="description" content="Powered by Chat GPT" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

@@ -6,8 +6,8 @@ const Emails: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Email Buddy</title>
-        <meta name="description" content="Powered by Chat GPT" />
+        <title>View Emails - EmailBuddy</title>
+        <meta name="description" content="Choose an email to get a reply" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>

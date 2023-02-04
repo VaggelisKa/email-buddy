@@ -26,7 +26,7 @@ const Login: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>Login - EmailBuddy</title>
         <meta name="description" content="Choose your email provider" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
