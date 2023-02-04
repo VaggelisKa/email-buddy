@@ -1,6 +1,7 @@
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { Layout } from "@/components";
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -36,7 +37,7 @@ const Home: NextPage = () => {
         <meta name="description" content="Powered by Chat GPT" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center">
+      <Layout>
         <div className="hero min-h-screen bg-base-200">
           <div className="hero-content text-center">
             <div className="max-w-xl">
@@ -52,7 +53,7 @@ const Home: NextPage = () => {
             </div>
           </div>
         </div>
-      </main>
+      </Layout>
     </>
   );
 };

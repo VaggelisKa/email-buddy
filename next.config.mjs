@@ -8,5 +8,8 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    domains: ["th.bing.com"],
+  },
 };
 export default config;

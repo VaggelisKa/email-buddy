@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { useMsal } from "@azure/msal-react";
 import { loginRequest } from "@/utils";
+import { Layout } from "@/components";
 
 const Login: NextPage = () => {
   const { instance, inProgress } = useMsal();
@@ -29,7 +30,7 @@ const Login: NextPage = () => {
         <meta name="description" content="Choose your email provider" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex min-h-screen flex-col items-center justify-center">
+      <Layout>
         <div className="card flex h-full w-96 flex-col items-center bg-base-100 p-16 shadow-xl">
           <h1 className="pb-6 text-4xl font-medium">Login</h1>
           <div className="flex flex-col gap-4">
@@ -49,7 +50,7 @@ const Login: NextPage = () => {
             </button>
           </div>
         </div>
-      </main>
+      </Layout>
     </>
   );
 };
