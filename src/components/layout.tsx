@@ -1,14 +1,30 @@
-import { AuthenticatedTemplate } from "@azure/msal-react";
+import { AuthenticatedTemplate, useMsal } from "@azure/msal-react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 const Header: React.FC = () => {
+  const { instance } = useMsal();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    try {
+      await instance.logoutPopup();
+      await router.push("/login");
+    } catch {
+      console.log("Logout failed");
+    }
+  };
+
   return (
     <div className="navbar bg-base-200 p-4">
       <div className="flex-1">
         <span className="text-xl font-bold normal-case">Email Buddy</span>
       </div>
       <div className="dropdown-end dropdown  shadow-2xl drop-shadow-2xl">
-        <label tabIndex={0} className="btn-ghost btn-circle avatar btn">
+        <label
+          tabIndex={0}
+          className="btn-ghost btn-circle avatar btn rounded-full"
+        >
           <Image
             className="rounded-full"
             width={38}
@@ -31,7 +47,7 @@ const Header: React.FC = () => {
             <a>Settings</a>
           </li>
           <li>
-            <a>Logout</a>
+            <a onClick={handleLogout}>Logout</a>
           </li>
         </ul>
       </div>
@@ -80,11 +96,11 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   return (
-    <div className="flex flex-col">
+    <div className="flex min-h-screen flex-col justify-between">
       <AuthenticatedTemplate>
         <Header />
       </AuthenticatedTemplate>
-      <main className="flex min-h-screen flex-col items-center justify-center">
+      <main className="flex flex-grow flex-col items-center justify-center">
         {children}
       </main>
       <Footer />
