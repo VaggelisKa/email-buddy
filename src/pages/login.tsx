@@ -54,8 +54,8 @@ const Login: NextPage = () => {
               >
                 MS Outlook
               </button>
-              <button className="btn-wide btn" disabled>
-                Gmail (soon)
+              <button className="btn-wide btn normal-case" disabled>
+                GMAIL (soon!)
               </button>
             </div>
           </div>
