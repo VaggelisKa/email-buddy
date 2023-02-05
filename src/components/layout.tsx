@@ -1,10 +1,22 @@
 import { AuthenticatedTemplate, useMsal } from "@azure/msal-react";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 const Header: React.FC = () => {
+  const [username, setUsername] = useState("");
   const { instance } = useMsal();
   const router = useRouter();
+
+  useEffect(() => {
+    const user = instance.getActiveAccount();
+
+    if (user && user.name) {
+      const firstName = user.name.split(" ")[0];
+
+      setUsername(firstName ?? "");
+    }
+  }, [instance]);
 
   const handleLogout = async () => {
     try {
@@ -18,7 +30,9 @@ const Header: React.FC = () => {
   return (
     <div className="navbar bg-base-200 p-4">
       <div className="flex-1">
-        <span className="text-xl font-bold normal-case">Email Buddy</span>
+        <span className="text-xl font-bold normal-case">
+          {username.length > 0 ? `Welcome, ${username}` : "Email Buddy"}
+        </span>
       </div>
       <div className="dropdown-end dropdown  shadow-2xl drop-shadow-2xl">
         <label
