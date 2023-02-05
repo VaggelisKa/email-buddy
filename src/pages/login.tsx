@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { useIsAuthenticated, useMsal } from "@azure/msal-react";
-import { loginRequest } from "@/utils";
+import { loginRequest, msalConfig } from "@/utils";
 import { Layout } from "@/components";
 import { InteractionStatus } from "@azure/msal-browser";
 
@@ -15,7 +15,7 @@ const Login: NextPage = () => {
   React.useEffect(() => {
     (async () => {
       if (isAuthenticated) {
-        await router.push("/emails?provider=microsoft");
+        await router.push(msalConfig.auth.redirectUri || "/emails");
       }
     })();
   }, [isAuthenticated, router]);
@@ -27,7 +27,7 @@ const Login: NextPage = () => {
       });
 
       if (auth) {
-        await router.push("/emails?provider=microsoft");
+        await router.push(msalConfig.auth.redirectUri || "/emails");
       }
     } catch (error) {
       console.log(error);

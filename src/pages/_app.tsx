@@ -2,9 +2,10 @@ import { type AppType } from "next/app";
 import { api, msalConfig } from "@/utils";
 import { MsalProvider } from "@azure/msal-react";
 import { EventType, PublicClientApplication } from "@azure/msal-browser";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "../styles/globals.css";
 
-const msalInstance = new PublicClientApplication(msalConfig);
+export const msalInstance = new PublicClientApplication(msalConfig);
 
 const userAccounts = msalInstance.getAllAccounts();
 if (userAccounts?.length > 0) {
@@ -26,6 +27,7 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   return (
     <MsalProvider instance={msalInstance}>
       <Component {...pageProps} />
+      <ReactQueryDevtools initialIsOpen={false} />
     </MsalProvider>
   );
 };

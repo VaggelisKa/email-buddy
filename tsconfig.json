@@ -18,7 +18,8 @@
     "baseUrl": ".",
     "paths": {
       "@/utils": ["./src/utils/index.ts"],
-      "@/components": ["./src/components/index.ts"]
+      "@/components": ["./src/components/index.ts"],
+      "@/hooks": ["./src/hooks/index.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs"],

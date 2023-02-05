@@ -1,20 +1,25 @@
+import { LogLevel } from "@azure/msal-browser";
 import type { Configuration } from "@azure/msal-browser";
 
 export const msalConfig: Configuration = {
   auth: {
-    clientId: "a80764aa-c133-432f-ac10-ef4b346d2d5b",
-    authority:
-      "https://login.microsoftonline.com/85368a70-b60b-474c-948b-0641cbd0b910",
-    redirectUri: "/emails?provider=microsoft",
+    clientId: "faa244bb-9342-43c3-806b-60b3cac23791",
+    redirectUri: "/emails",
     postLogoutRedirectUri: "/login",
   },
   cache: {
-    secureCookies: true,
-    storeAuthStateInCookie: false,
     cacheLocation: "localStorage",
+  },
+  system: {
+    loggerOptions: {
+      loggerCallback: (_, message) => {
+        console.log(message);
+      },
+      logLevel: LogLevel.Verbose,
+    },
   },
 };
 
 export const loginRequest = {
-  scopes: ["User.Read"],
+  scopes: ["User.Read", "Mail.ReadBasic", "Mail.Read"],
 };

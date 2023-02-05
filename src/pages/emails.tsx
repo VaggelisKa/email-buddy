@@ -1,10 +1,15 @@
 import { Layout } from "@/components";
 import { InteractionType } from "@azure/msal-browser";
-import { MsalAuthenticationTemplate } from "@azure/msal-react";
 import type { NextPage } from "next";
 import Head from "next/head";
+import { MsalAuthenticationTemplate } from "@azure/msal-react";
+import { useFetchEmails } from "@/hooks";
 
 const Emails: NextPage = () => {
+  const emails = useFetchEmails();
+
+  console.log(emails?.data);
+
   return (
     <>
       <Head>
