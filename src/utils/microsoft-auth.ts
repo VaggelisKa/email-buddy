@@ -15,7 +15,7 @@ export const msalConfig: Configuration = {
       loggerCallback: (_, message) => {
         console.log(message);
       },
-      logLevel: LogLevel.Verbose,
+      logLevel: LogLevel.Warning,
     },
   },
 };

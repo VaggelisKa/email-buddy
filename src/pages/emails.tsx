@@ -8,8 +8,6 @@ import { useFetchEmails } from "@/hooks";
 const Emails: NextPage = () => {
   const emails = useFetchEmails();
 
-  console.log(emails?.data);
-
   return (
     <>
       <Head>

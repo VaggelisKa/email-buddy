@@ -87,10 +87,10 @@ export const fetchEmails = async () => {
         method: "GET",
         headers: await getHeaders(),
       })
-    ).json()) as MicrosoftEmail[];
+    ).json()) as { value: MicrosoftEmail[] };
 
     return emailsData ?? [];
   } catch (error) {
-    return [];
+    return { value: [] };
   }
 };
