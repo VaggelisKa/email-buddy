@@ -4,7 +4,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { MsalAuthenticationTemplate } from "@azure/msal-react";
 import { useFetchEmails } from "@/hooks";
-import React, { useEffect } from "react";
+import React from "react";
 
 const Emails: NextPage = () => {
   const [currentModal, setCurrentModal] = React.useState<{
@@ -14,7 +14,7 @@ const Emails: NextPage = () => {
   }>({ isOpen: false, subject: "", content: "" });
   const emails = useFetchEmails();
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.body.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {
         setCurrentModal({ isOpen: false, subject: "", content: "" });
@@ -32,6 +32,30 @@ const Emails: NextPage = () => {
       document.body.removeEventListener("keydown", () => {});
     };
   }, [currentModal]);
+
+  const getEmailRelativeTime = (datestamp: string) => {
+    const relativeTime = new Intl.RelativeTimeFormat("en", {
+      localeMatcher: "best fit",
+    });
+
+    const timeagoMinutes = Math.floor(
+      (new Date().getTime() - new Date(datestamp).getTime()) / 1000 / 60
+    );
+
+    if (timeagoMinutes <= 5) {
+      return "Just now";
+    }
+
+    if (timeagoMinutes < 60) {
+      return relativeTime.format(-timeagoMinutes, "minutes");
+    }
+
+    if (timeagoMinutes >= 60 && timeagoMinutes < 2 * 1440) {
+      return relativeTime.format(-Math.floor(timeagoMinutes / 60), "hours");
+    }
+
+    return relativeTime.format(-Math.floor(timeagoMinutes / 1440), "days");
+  };
 
   return (
     <>
@@ -69,7 +93,7 @@ const Emails: NextPage = () => {
                           <span className="text-xl">{email.subject}</span>
                         </div>
                         <span className="text-sm italic text-gray-500">
-                          Just now
+                          {getEmailRelativeTime(email.receivedDateTime)}
                         </span>
                       </div>
                       <p className="mt-6 text-sm text-gray-400">
