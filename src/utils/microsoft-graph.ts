@@ -75,22 +75,29 @@ export const getHeaders = async () => {
   const headers = new Headers();
 
   headers.append("Content-Type", "application/json");
+  headers.append("Prefer", "outlook.body-content-type=text");
   headers.append("Authorization", `Bearer ${tokenData.accessToken}`);
 
   return headers;
 };
 
 export const fetchEmails = async () => {
+  const filter =
+    "$filter=not(contains(from/emailAddress/address, 'microsoft.com') or contains(from/emailAddress/address, 'no-reply'))";
+
   try {
     const emailsData = (await (
-      await fetch(`${baseUrl}/me/messages`, {
-        method: "GET",
-        headers: await getHeaders(),
-      })
-    ).json()) as { value: MicrosoftEmail[] };
+      await fetch(
+        `${baseUrl}/me/mailFolders/inbox/messages?$count=true&$top=20&${filter}`,
+        {
+          method: "GET",
+          headers: await getHeaders(),
+        }
+      )
+    ).json()) as { value: MicrosoftEmail[]; "@odata.count": number };
 
     return emailsData ?? [];
   } catch (error) {
-    return { value: [] };
+    return { value: [], "@odata.count": 0 };
   }
 };

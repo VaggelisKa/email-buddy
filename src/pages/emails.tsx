@@ -4,7 +4,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { MsalAuthenticationTemplate } from "@azure/msal-react";
 import { useFetchEmails } from "@/hooks";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Emails: NextPage = () => {
   const [currentModal, setCurrentModal] = React.useState<{
@@ -13,6 +13,25 @@ const Emails: NextPage = () => {
     content: string;
   }>({ isOpen: false, subject: "", content: "" });
   const emails = useFetchEmails();
+
+  useEffect(() => {
+    document.body.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        setCurrentModal({ isOpen: false, subject: "", content: "" });
+      }
+    });
+
+    if (currentModal.isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+      document.body.removeEventListener("keydown", () => {});
+    };
+  }, [currentModal]);
 
   return (
     <>
@@ -30,13 +49,17 @@ const Emails: NextPage = () => {
             <Spinner />
           ) : (
             <>
-              <h1 className="pb-6 text-4xl font-medium">Choose an email</h1>
+              <h1 className="pb-6 text-4xl font-medium">
+                Choose an email{" "}
+                {emails.data?.["@odata.count"] &&
+                  `(${emails.data?.["@odata.count"]} in total)`}
+              </h1>
               <div className="flex flex-col gap-4">
                 {emails.data?.value &&
                   emails.data.value.map((email) => (
                     <article
                       key={email["@odata.etag"]}
-                      className="min-w-96 card min-h-[100px] bg-base-100 p-8 shadow-2xl"
+                      className="card min-h-[100px] min-w-fit bg-base-100 p-8 shadow-2xl"
                     >
                       <div className="flex flex-row justify-between">
                         <div className="flex flex-col gap-2">

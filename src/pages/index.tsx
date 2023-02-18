@@ -5,9 +5,9 @@ import { Layout } from "@/components";
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const cookies = context.req.headers.cookie;
+  const cookie = context.req.cookies["isFirstTimeUser"];
 
-  if (cookies && cookies.includes("isFirstTimeUser=false")) {
+  if (cookie && cookie === "false") {
     return {
       redirect: {
         destination: "/login",
@@ -25,7 +25,9 @@ const Home: NextPage = () => {
   const router = useRouter();
 
   const handleClick = async () => {
-    document.cookie = "isFirstTimeUser=false; SameSite=None; Secure";
+    document.cookie = `isFirstTimeUser=false; SameSite=None; Secure; max-age=${
+      60 * 60 * 24 * 60
+    }}`;
 
     await router.push("/login");
   };

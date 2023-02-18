@@ -7,7 +7,7 @@ const EmailSubjectModal: React.FC<{
 }> = ({ subject, content, onClose }) => (
   <>
     {createPortal(
-      <div className="modal-open modal modal-bottom sm:modal-middle">
+      <div className="modal-open modal modal-bottom bg-opacity-70 sm:modal-middle">
         <div className="modal-box">
           <button
             aria-label="Close read more section"
@@ -17,12 +17,7 @@ const EmailSubjectModal: React.FC<{
             ✕
           </button>
           <h3 className="text-lg font-bold">{subject}</h3>
-          <p
-            className="py-4"
-            dangerouslySetInnerHTML={{
-              __html: content,
-            }}
-          />
+          <p className="py-4">{content}</p>
           <div className="modal-action">
             <button className="btn-primary btn">Get a reply</button>
           </div>
