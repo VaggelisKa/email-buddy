@@ -75,7 +75,9 @@ const Emails: NextPage = () => {
       </Head>
       <MsalAuthenticationTemplate
         interactionType={InteractionType.Redirect}
-        authenticationRequest={{ redirectUri: "/emails?provider=microsoft" }}
+        authenticationRequest={{
+          redirectUri: process.env.NEXT_PUBLIC_AZURE_REDIRECT_URI || "/emails",
+        }}
       >
         <Layout>
           {emails.isLoading ? (
