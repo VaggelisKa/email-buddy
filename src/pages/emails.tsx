@@ -5,6 +5,7 @@ import Head from "next/head";
 import { MsalAuthenticationTemplate } from "@azure/msal-react";
 import { useFetchEmails } from "@/hooks";
 import React from "react";
+import { useRouter } from "next/router";
 
 const Emails: NextPage = () => {
   const [currentModal, setCurrentModal] = React.useState<{
@@ -13,6 +14,7 @@ const Emails: NextPage = () => {
     content: string;
   }>({ isOpen: false, subject: "", content: "" });
   const emails = useFetchEmails();
+  const router = useRouter();
 
   React.useEffect(() => {
     document.body.addEventListener("keydown", (e) => {
@@ -55,6 +57,13 @@ const Emails: NextPage = () => {
     }
 
     return relativeTime.format(-Math.floor(timeagoMinutes / 1440), "days");
+  };
+
+  const handleGetReplyClick = async (subject: string) => {
+    await router.push({
+      pathname: "/reply",
+      query: { subject: encodeURIComponent(subject) },
+    });
   };
 
   return (
@@ -114,7 +123,12 @@ const Emails: NextPage = () => {
                         >
                           Read More
                         </button>
-                        <button className="btn-primary btn-sm btn">
+                        <button
+                          className="btn-primary btn-sm btn"
+                          onClick={() =>
+                            handleGetReplyClick(email.body.content)
+                          }
+                        >
                           Get Reply
                         </button>
                       </div>
