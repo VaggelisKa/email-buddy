@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/require-await */
-import { Layout } from "@/components";
+import React from "react";
+import { useRouter } from "next/router";
 import type {
   GetServerSideProps,
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
 import Head from "next/head";
-import React from "react";
 import { api } from "@/utils";
+import { Layout } from "@/components";
 
 export const getServerSideProps: GetServerSideProps<{
   subject: string;
@@ -35,6 +36,7 @@ const Reply: NextPage<
 > = ({ subject }) => {
   const subjectTextRef = React.useRef<HTMLTextAreaElement>(null);
   const mannerSelectRef = React.useRef<HTMLSelectElement>(null);
+  const router = useRouter();
   const generateReplyMutation = api.chatGpt.generateReply.useMutation();
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -98,9 +100,18 @@ const Reply: NextPage<
               <option value="funny">Funny</option>
             </select>
           </div>
-          <button className=" btn-primary btn" type="submit">
-            Generate
-          </button>
+          <div className="flex flex-col gap-4">
+            <button
+              className="btn-outline btn"
+              type="button"
+              onClick={router.back}
+            >
+              Back to emails
+            </button>
+            <button className=" btn btn-primary" type="submit">
+              Generate
+            </button>
+          </div>
         </form>
       </Layout>
     </>
