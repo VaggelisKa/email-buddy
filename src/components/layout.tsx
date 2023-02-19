@@ -114,7 +114,7 @@ export const Layout: React.FC<{ children: React.ReactNode }> = ({
       <AuthenticatedTemplate>
         <Header />
       </AuthenticatedTemplate>
-      <main className="flex flex-grow flex-col items-center justify-center pt-8">
+      <main className="flex flex-grow flex-col items-center justify-center px-8 pt-8">
         {children}
       </main>
       <Footer />
