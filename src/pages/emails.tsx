@@ -2,7 +2,10 @@ import { EmailSubjectModal, Layout, Spinner } from "@/components";
 import { InteractionType } from "@azure/msal-browser";
 import type { NextPage } from "next";
 import Head from "next/head";
-import { MsalAuthenticationTemplate } from "@azure/msal-react";
+import {
+  MsalAuthenticationTemplate,
+  useIsAuthenticated,
+} from "@azure/msal-react";
 import { useFetchEmails } from "@/hooks";
 import React from "react";
 import { useRouter } from "next/router";
@@ -13,7 +16,8 @@ const Emails: NextPage = () => {
     subject: string;
     content: string;
   }>({ isOpen: false, subject: "", content: "" });
-  const emails = useFetchEmails();
+  const isAuthenticated = useIsAuthenticated();
+  const emails = useFetchEmails(isAuthenticated);
   const router = useRouter();
 
   React.useEffect(() => {
@@ -114,7 +118,7 @@ const Emails: NextPage = () => {
                       </p>
                       <div className="mt-8 flex flex-row justify-end gap-2">
                         <button
-                          className="btn-outline btn-sm btn"
+                          className="btn-outline btn btn-sm"
                           onClick={() => {
                             setCurrentModal({
                               isOpen: true,
@@ -126,7 +130,7 @@ const Emails: NextPage = () => {
                           Read More
                         </button>
                         <button
-                          className="btn-primary btn-sm btn"
+                          className="btn btn-primary btn-sm"
                           onClick={() =>
                             handleGetReplyClick(email.body.content)
                           }
