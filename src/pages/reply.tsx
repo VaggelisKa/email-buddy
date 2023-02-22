@@ -9,6 +9,7 @@ import type {
 import Head from "next/head";
 import { api } from "@/utils";
 import { Layout } from "@/components";
+import { useMsal } from "@azure/msal-react";
 
 export const getServerSideProps: GetServerSideProps<{
   subject: string;
@@ -37,19 +38,23 @@ const Reply: NextPage<
   const subjectTextRef = React.useRef<HTMLTextAreaElement>(null);
   const mannerSelectRef = React.useRef<HTMLSelectElement>(null);
   const router = useRouter();
+  const { instance } = useMsal();
   const generateReplyMutation = api.chatGpt.generateReply.useMutation();
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!subjectTextRef.current?.value || !mannerSelectRef.current?.value) {
       return;
     }
 
-    generateReplyMutation.mutate({
+    const response = await generateReplyMutation.mutateAsync({
       subject: subjectTextRef.current.value,
       manner: mannerSelectRef.current.value,
+      name: instance.getActiveAccount()?.name,
     });
+
+    console.log(response);
   };
 
   return (
@@ -108,7 +113,7 @@ const Reply: NextPage<
             >
               Back to emails
             </button>
-            <button className=" btn btn-primary" type="submit">
+            <button className=" btn-primary btn" type="submit">
               Generate
             </button>
           </div>
