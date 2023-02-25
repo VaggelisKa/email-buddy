@@ -21,9 +21,11 @@ export const chatGptRouter = createTRPCRouter({
     .mutation(async ({ input }) => {
       const prompt = `Given the context that you are an email chatbot reply to the following message ${
         input.subject
-      }. The manner of the email should be ${
+      }, The manner of the email should be ${
         input.manner
-      }. The name of the person sending the email is ${input.name || ""}`;
+      }, Always add an email closing with from the following name ${
+        input.name || ""
+      }, You should never reveal that you are a chatbot`;
 
       try {
         const response = await openai.createCompletion({

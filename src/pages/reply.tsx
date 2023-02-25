@@ -10,7 +10,7 @@ import Head from "next/head";
 import { api } from "@/utils";
 import { Layout } from "@/components";
 import { useMsal } from "@azure/msal-react";
-import { BiCopy } from "react-icons/bi";
+import { BiCopy, BiCheck, BiErrorCircle } from "react-icons/bi";
 
 export const getServerSideProps: GetServerSideProps<{
   subject: string;
@@ -149,7 +149,21 @@ function ReplyTemplate({
   reply: string;
   onTryAgain: () => void;
 }) {
+  const [isCopied, setIsCopied] = React.useState<boolean | null>(null);
   const router = useRouter();
+
+  const onCopyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(reply);
+      setIsCopied(true);
+
+      setTimeout(() => {
+        setIsCopied(null);
+      }, 5000);
+    } catch (error) {
+      setIsCopied(false);
+    }
+  };
 
   return (
     <>
@@ -163,11 +177,30 @@ function ReplyTemplate({
           </div>
           <div className="chat chat-start w-full">
             <p className="chat-bubble chat-bubble-primary whitespace-pre-wrap">
-              <BiCopy
-                role="button"
-                aria-label="copy to clipboard"
-                className="float-right h-6 w-6 hover:opacity-40"
-              />
+              {isCopied && (
+                <BiCheck
+                  role="button"
+                  aria-label="copy to clipboard"
+                  onClick={onCopyToClipboard}
+                  className="float-right h-6 w-6 hover:opacity-40"
+                />
+              )}
+              {isCopied === null && (
+                <BiCopy
+                  role="button"
+                  aria-label="copy to clipboard"
+                  className="float-right h-6 w-6 hover:opacity-40"
+                  onClick={onCopyToClipboard}
+                />
+              )}
+              {isCopied === false && (
+                <BiErrorCircle
+                  role="button"
+                  aria-label="copy to clipboard"
+                  className="float-right h-6 w-6 hover:opacity-40"
+                  onClick={onCopyToClipboard}
+                />
+              )}
               {reply}
             </p>
           </div>
