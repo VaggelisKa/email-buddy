@@ -4,7 +4,8 @@ const EmailSubjectModal: React.FC<{
   subject: string;
   content: string;
   onClose: () => void;
-}> = ({ subject, content, onClose }) => (
+  onGetReply: () => void;
+}> = ({ subject, content, onClose, onGetReply }) => (
   <>
     {createPortal(
       <div className="modal-open modal modal-bottom bg-opacity-70 sm:modal-middle">
@@ -19,7 +20,9 @@ const EmailSubjectModal: React.FC<{
           <h3 className="pt-2 text-lg font-bold">{subject}</h3>
           <p className="whitespace-pre-wrap py-4">{content}</p>
           <div className="modal-action">
-            <button className="btn-primary btn">Get a reply</button>
+            <button className="btn-primary btn" onClick={onGetReply}>
+              Get a reply
+            </button>
           </div>
         </div>
       </div>,

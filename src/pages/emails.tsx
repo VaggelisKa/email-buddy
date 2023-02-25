@@ -68,6 +68,10 @@ const Emails: NextPage = () => {
       pathname: "/reply",
       query: { subject: encodeURIComponent(subject) },
     });
+
+    if (currentModal.isOpen) {
+      setCurrentModal({ isOpen: false, subject: "", content: "" });
+    }
   };
 
   return (
@@ -146,6 +150,7 @@ const Emails: NextPage = () => {
                 <EmailSubjectModal
                   subject={currentModal.subject}
                   content={currentModal.content}
+                  onGetReply={() => handleGetReplyClick(currentModal.content)}
                   onClose={() => {
                     setCurrentModal((prev) => ({ ...prev, isOpen: false }));
                   }}
