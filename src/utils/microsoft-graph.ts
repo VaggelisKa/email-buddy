@@ -83,12 +83,12 @@ export const getHeaders = async () => {
 
 export const fetchEmails = async () => {
   const filter =
-    "$filter=not(contains(from/emailAddress/address, 'microsoft.com') or contains(from/emailAddress/address, 'no-reply'))";
+    "$filter=receivedDateTime ge 2022-01-01T00:00:00Z and not(contains(from/emailAddress/address, 'microsoft.com') or contains(from/emailAddress/address, 'no-reply'))";
 
   try {
     const emailsData = (await (
       await fetch(
-        `${baseUrl}/me/mailFolders/inbox/messages?$count=true&$top=20&${filter}`,
+        `${baseUrl}/me/mailFolders/inbox/messages?$orderby=receivedDateTime desc&$count=true&$top=20&${filter}`,
         {
           method: "GET",
           headers: await getHeaders(),
