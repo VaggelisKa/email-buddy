@@ -17,7 +17,7 @@ const EmailSubjectModal: React.FC<{
             ✕
           </button>
           <h3 className="text-lg font-bold">{subject}</h3>
-          <p className="py-4">{content}</p>
+          <p className="whitespace-pre-wrap py-4">{content}</p>
           <div className="modal-action">
             <button className="btn-primary btn">Get a reply</button>
           </div>

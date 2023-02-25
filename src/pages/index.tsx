@@ -1,7 +1,9 @@
+import React from "react";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Layout } from "@/components";
+import { useIsAuthenticated } from "@azure/msal-react";
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -23,6 +25,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Home: NextPage = () => {
   const router = useRouter();
+  const isAuthenticated = useIsAuthenticated();
+
+  React.useEffect(() => {
+    (async () => {
+      if (isAuthenticated) {
+        await router.push("/emails");
+      }
+    })();
+  }, [isAuthenticated, router]);
 
   const handleClick = async () => {
     document.cookie = `isFirstTimeUser=false; SameSite=None; Secure; max-age=${

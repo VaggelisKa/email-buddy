@@ -89,9 +89,10 @@ const Emails: NextPage = () => {
           ) : (
             <>
               <h1 className="pb-6 text-4xl font-medium">
-                Choose an email{" "}
-                {emails.data?.["@odata.count"] &&
-                  `(${emails.data?.["@odata.count"]} in total)`}
+                Choose an email
+                {emails.data?.["@odata.count"] && (
+                  <span className="text-xl">{`(${emails.data?.["@odata.count"]} in total)`}</span>
+                )}
               </h1>
               <div className="flex flex-col gap-4">
                 {emails.data?.value &&
@@ -118,7 +119,7 @@ const Emails: NextPage = () => {
                       </p>
                       <div className="mt-8 flex flex-row justify-end gap-2">
                         <button
-                          className="btn-outline btn btn-sm"
+                          className="btn-outline btn-sm btn"
                           onClick={() => {
                             setCurrentModal({
                               isOpen: true,
@@ -130,7 +131,7 @@ const Emails: NextPage = () => {
                           Read More
                         </button>
                         <button
-                          className="btn btn-primary btn-sm"
+                          className="btn-primary btn-sm btn"
                           onClick={() =>
                             handleGetReplyClick(email.body.content)
                           }
