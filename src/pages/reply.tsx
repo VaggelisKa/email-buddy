@@ -69,7 +69,10 @@ const Reply: NextPage<
       <Layout>
         {generateReplyMutation.data &&
         generateReplyMutation.data.choices[0]?.text ? (
-          <ReplyTemplate reply={generateReplyMutation.data.choices[0]?.text} />
+          <ReplyTemplate
+            reply={generateReplyMutation.data.choices[0]?.text}
+            onTryAgain={() => generateReplyMutation.reset()}
+          />
         ) : (
           <>
             <h1 className="pb-10 text-4xl font-medium">Generate a reply!</h1>
@@ -90,6 +93,7 @@ const Reply: NextPage<
                   defaultValue={subject}
                   required
                   aria-required
+                  readOnly={generateReplyMutation.isLoading}
                 ></textarea>
               </div>
               <div className="form-control">
@@ -99,7 +103,9 @@ const Reply: NextPage<
                 <select
                   ref={mannerSelectRef}
                   id="manner-select"
-                  className="select-bordered select"
+                  className={`select-bordered select ${
+                    generateReplyMutation.isLoading ? "pointer-events-none" : ""
+                  }`}
                   defaultValue="formal"
                   required
                 >
@@ -117,8 +123,15 @@ const Reply: NextPage<
                 >
                   Back to emails
                 </button>
-                <button className=" btn-primary btn" type="submit">
-                  Generate
+                <button
+                  className={`btn-primary btn ${
+                    generateReplyMutation.isLoading ? "loading" : ""
+                  }`}
+                  type="submit"
+                >
+                  {generateReplyMutation.isLoading
+                    ? "Generating a reply..."
+                    : "Generate"}
                 </button>
               </div>
             </form>
@@ -129,7 +142,13 @@ const Reply: NextPage<
   );
 };
 
-function ReplyTemplate({ reply }: { reply: string }) {
+function ReplyTemplate({
+  reply,
+  onTryAgain,
+}: {
+  reply: string;
+  onTryAgain: () => void;
+}) {
   const router = useRouter();
 
   return (
@@ -160,7 +179,9 @@ function ReplyTemplate({ reply }: { reply: string }) {
               >
                 Back To Emails
               </button>
-              <button className="btn-secondary btn-sm btn">Try Again</button>
+              <button className="btn-secondary btn-sm btn" onClick={onTryAgain}>
+                Try Again
+              </button>
             </div>
           </div>
         </div>
