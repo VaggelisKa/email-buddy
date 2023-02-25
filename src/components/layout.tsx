@@ -44,7 +44,7 @@ const Header: React.FC = () => {
             width={38}
             height={38}
             src="https://th.bing.com/th/id/R.28674b3ec8aa1a32aa098ba1ce19a65a?rik=tSlhj5yOjXXeBw&pid=ImgRaw&r=0"
-            alt=""
+            alt="Your profile"
           />
         </label>
         <ul

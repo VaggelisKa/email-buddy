@@ -88,18 +88,18 @@ const Emails: NextPage = () => {
             <Spinner />
           ) : (
             <>
-              <h1 className="pb-6 text-4xl font-medium">
+              <h1 className="pb-6 text-3xl font-medium sm:text-4xl">
                 Choose an email
                 {emails.data?.["@odata.count"] && (
-                  <span className="text-xl">{`(${emails.data?.["@odata.count"]} in total)`}</span>
+                  <span className="hidden text-xl sm:inline-block">{`(${emails.data?.["@odata.count"]} in total)`}</span>
                 )}
               </h1>
-              <div className="flex flex-col gap-4">
+              <div className="grid gap-4 md:grid-cols-2">
                 {emails.data?.value &&
                   emails.data.value.map((email) => (
                     <article
                       key={email["@odata.etag"]}
-                      className="card min-h-[100px] min-w-fit bg-base-100 p-8 shadow-2xl"
+                      className="card min-h-[100px] min-w-fit max-w-[40rem] justify-between bg-base-100 p-8 shadow-2xl"
                     >
                       <div className="flex flex-row justify-between">
                         <div className="flex flex-col gap-2">
@@ -108,7 +108,7 @@ const Emails: NextPage = () => {
                           </span>
                           <span className="text-xl">{email.subject}</span>
                         </div>
-                        <span className="text-sm italic text-gray-500">
+                        <span className="whitespace-nowrap text-sm italic text-gray-500">
                           {getEmailRelativeTime(email.receivedDateTime)}
                         </span>
                       </div>
