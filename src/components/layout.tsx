@@ -2,11 +2,16 @@ import { AuthenticatedTemplate, useMsal } from "@azure/msal-react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import useFetchUserProfilePhoto from "src/hooks/useFetchUserProfilePhoto";
+import * as UserPlaceholder from "../../public/user-profile-placeholder.svg";
 
 const Header: React.FC = () => {
   const [username, setUsername] = useState("");
-  const { instance } = useMsal();
   const router = useRouter();
+  const { instance } = useMsal();
+  const userProfileQuery = useFetchUserProfilePhoto(
+    !!instance.getActiveAccount()
+  );
 
   useEffect(() => {
     const user = instance.getActiveAccount();
@@ -40,10 +45,10 @@ const Header: React.FC = () => {
           className="btn-ghost btn-circle avatar btn rounded-full"
         >
           <Image
-            className="rounded-full"
-            width={38}
-            height={38}
-            src="https://th.bing.com/th/id/R.28674b3ec8aa1a32aa098ba1ce19a65a?rik=tSlhj5yOjXXeBw&pid=ImgRaw&r=0"
+            className="rounded-full border border-gray-700 object-cover"
+            width={48}
+            height={48}
+            src={userProfileQuery.data || UserPlaceholder}
             alt="Your profile"
           />
         </label>

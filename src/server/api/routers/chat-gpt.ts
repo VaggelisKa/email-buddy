@@ -25,7 +25,7 @@ export const chatGptRouter = createTRPCRouter({
         input.manner
       }, Always add an email closing with from the following name ${
         input.name || ""
-      }, You should never reveal that you are a chatbot`;
+      }, You should never reveal that you are a chatbot. If the email can be clasified as welcome, spam, promotional or security notification then do not generate a reply and instead mention that 'This reply service is not meant to be used for this type of email'`;
 
       try {
         const response = await openai.createCompletion({

@@ -69,10 +69,10 @@ const getAccessToken = async () => {
   return tokenRes;
 };
 
-export const getHeaders = async () => {
+export const getHeaders = async (initialHeaders?: HeadersInit) => {
   const tokenData = await getAccessToken();
 
-  const headers = new Headers();
+  const headers = new Headers(initialHeaders);
 
   headers.append("Content-Type", "application/json");
   headers.append("Prefer", "outlook.body-content-type=text");
@@ -99,5 +99,22 @@ export const fetchEmails = async () => {
     return emailsData ?? [];
   } catch (error) {
     return { value: [], "@odata.count": 0 };
+  }
+};
+
+export const fetchUserProfilePhoto = async () => {
+  try {
+    const photoData = await (
+      await fetch(`${baseUrl}/me/photos/48x48/$value`, {
+        method: "GET",
+        headers: await getHeaders({
+          "Cache-control": "immutable; s-maxage=2592000",
+        }),
+      })
+    ).blob();
+
+    return photoData ? window.URL.createObjectURL(photoData) : null;
+  } catch {
+    return null;
   }
 };
