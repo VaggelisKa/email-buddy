@@ -1,28 +1,17 @@
-# Create T3 App
+# Email Buddy
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## What is this app?
 
-## What's next? How do I make an app with this?
+This app allows you to connect to your Microsoft outlook account and after selecting an email, it will generate a response for you.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## How does it work?
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+Email Buddy uses the [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to connect to your outlook account. It then extracts the email's subject and feeds it into ChatGPT to get back a human-like response.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Some technologies used
 
-## Learn More
-
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
-
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
-
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
-
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+1. [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) and Azure.
+2. [Next.js](https://nextjs.org/) for the web.
+3. [TRPC](https://trpc.io/) for the API and it's typesafety.
+4. [Tailwind CSS](https://tailwindcss.com/) for the styling.
+5. [ChatGPT API](https://openai.com/api/) for the response generation.
