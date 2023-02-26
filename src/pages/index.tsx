@@ -51,21 +51,15 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <div className="hero min-h-screen bg-base-200">
-          <div className="hero-content text-center">
-            <div className="max-w-xl">
-              <h1 className="text-5xl font-bold">Next level emails!</h1>
-              <p className="py-6">
-                Empower your emails with advanced AI technology, ensuring
-                efficient and personalized communication. Try the ChartGPT
-                Powered Email App now!
-              </p>
-              <button className="btn-primary btn" onClick={handleClick}>
-                Get Started
-              </button>
-            </div>
-          </div>
-        </div>
+        <h1 className="text-5xl font-bold">Next level emails!</h1>
+        <p className="py-8">
+          Empower your emails with advanced AI technology, ensuring efficient
+          and personalized communication. Try the ChartGPT Powered Email App
+          now!
+        </p>
+        <button className="btn-primary btn" onClick={handleClick}>
+          Get Started
+        </button>
       </Layout>
     </>
   );
