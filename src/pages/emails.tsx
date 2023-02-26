@@ -9,6 +9,7 @@ import {
   useIsAuthenticated,
 } from "@azure/msal-react";
 import { useFetchEmails } from "@/hooks";
+import { msalConfig } from "@/utils";
 
 const Emails: NextPage = () => {
   const [currentModal, setCurrentModal] = React.useState<{
@@ -85,7 +86,7 @@ const Emails: NextPage = () => {
       <MsalAuthenticationTemplate
         interactionType={InteractionType.Redirect}
         authenticationRequest={{
-          redirectUri: process.env.NEXT_PUBLIC_AZURE_REDIRECT_URI || "/emails",
+          redirectUri: msalConfig.auth.redirectUri || "/emails",
         }}
       >
         <Layout>
