@@ -15,7 +15,7 @@ export const serverEnv = {
 };
 
 export const clientSchema = z.object({
-  NEXT_PUBLIC_AZURE_REDIRECT_URI: z.string(),
+  NEXT_PUBLIC_AZURE_REDIRECT_URI: z.string().optional(),
 });
 
 /**
