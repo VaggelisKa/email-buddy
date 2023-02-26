@@ -5,7 +5,6 @@ const useFetchEmails = (enabled?: boolean) => {
   return useQuery({
     queryKey: ["emails"],
     queryFn: fetchEmails,
-    staleTime: 1000 * 60 * 3, // 3 minutes
     enabled,
   });
 };

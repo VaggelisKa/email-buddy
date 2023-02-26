@@ -14,9 +14,9 @@ if (!_serverEnv.success) {
 
 for (let key of Object.keys(_serverEnv.data)) {
   if (key.startsWith("NEXT_PUBLIC_")) {
-    console.warn("You are exposing a server-side env-variable:", key);
+    console.warn("Exposing a server-side env-variable:", key);
 
-    throw new Error("You are exposing a server-side env-variable");
+    throw new Error("Exposing a server-side env-variable");
   }
 }
 

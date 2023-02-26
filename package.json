@@ -1,6 +1,8 @@
 {
+  "author": "Vaggelis Karavasileiadis",
   "name": "email-buddy",
   "version": "0.0.0",
+  "description": "Email reply helper, powered by Chat GPT",
   "private": true,
   "scripts": {
     "build": "next build",
