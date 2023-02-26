@@ -51,7 +51,7 @@ const Header: React.FC = () => {
             height={48}
             src={
               userProfileQuery && userProfileQuery.data
-                ? userProfileQuery.data
+                ? (userProfileQuery as { data: string }).data
                 : UserPlaceholder
             }
             alt="Your profile"
