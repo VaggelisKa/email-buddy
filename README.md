@@ -8,6 +8,8 @@ This app allows you to connect to your Microsoft outlook account and after selec
 
 Email Buddy uses the [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) to connect to your outlook account. It then extracts the email's subject and feeds it into ChatGPT to get back a human-like response.
 
+![image](https://user-images.githubusercontent.com/63293880/221406688-f00fd84d-5022-4fc4-95ac-7dea191ffbda.png)
+
 ## Some technologies used
 
 1. [Microsoft Graph API](https://learn.microsoft.com/en-us/graph/use-the-api) and Azure.
