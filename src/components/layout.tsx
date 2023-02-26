@@ -50,6 +50,7 @@ const Header: React.FC = () => {
             width={48}
             height={48}
             src={
+              // Lint in CI gets mad about this line, but it works fine locally. Explore this later.
               // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               userProfileQuery && userProfileQuery.data
                 ? userProfileQuery.data
