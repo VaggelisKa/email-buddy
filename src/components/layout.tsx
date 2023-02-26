@@ -50,8 +50,9 @@ const Header: React.FC = () => {
             width={48}
             height={48}
             src={
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
               userProfileQuery && userProfileQuery.data
-                ? (userProfileQuery as { data: string }).data
+                ? userProfileQuery.data
                 : UserPlaceholder
             }
             alt="Your profile"
