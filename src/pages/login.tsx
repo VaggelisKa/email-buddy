@@ -26,13 +26,11 @@ const Login: NextPage = () => {
 
   const handleMsLogin = async () => {
     try {
-      const auth = await instance.loginPopup({
+      await instance.loginRedirect({
         scopes: loginRequest.scopes,
       });
 
-      if (auth) {
-        await router.push(msalConfig.auth.redirectUri || "/emails");
-      }
+      await router.push(msalConfig.auth.redirectUri || "/emails");
     } catch {}
   };
 
