@@ -1,5 +1,5 @@
 const Spinner: React.FC = () => (
-  <div role="status">
+  <div role="status" aria-busy="true">
     <svg
       aria-hidden="true"
       className="mr-2 inline h-8 w-8 animate-spin fill-primary text-gray-200 dark:text-gray-600"

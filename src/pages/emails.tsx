@@ -1,14 +1,14 @@
+import React from "react";
+import type { NextPage } from "next";
+import { useRouter } from "next/router";
 import { EmailSubjectModal, Layout, Spinner } from "@/components";
 import { InteractionType } from "@azure/msal-browser";
-import type { NextPage } from "next";
 import Head from "next/head";
 import {
   MsalAuthenticationTemplate,
   useIsAuthenticated,
 } from "@azure/msal-react";
 import { useFetchEmails } from "@/hooks";
-import React from "react";
-import { useRouter } from "next/router";
 
 const Emails: NextPage = () => {
   const [currentModal, setCurrentModal] = React.useState<{
@@ -20,6 +20,7 @@ const Emails: NextPage = () => {
   const emails = useFetchEmails(isAuthenticated);
   const router = useRouter();
 
+  // This could be moved to the modal component
   React.useEffect(() => {
     document.body.addEventListener("keydown", (e) => {
       if (e.key === "Escape") {

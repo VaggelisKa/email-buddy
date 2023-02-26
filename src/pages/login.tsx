@@ -2,10 +2,14 @@ import React from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { useIsAuthenticated, useMsal } from "@azure/msal-react";
+import {
+  UnauthenticatedTemplate,
+  useIsAuthenticated,
+  useMsal,
+} from "@azure/msal-react";
+import { InteractionStatus } from "@azure/msal-browser";
 import { loginRequest, msalConfig } from "@/utils";
 import { Layout } from "@/components";
-import { InteractionStatus } from "@azure/msal-browser";
 
 const Login: NextPage = () => {
   const { instance, inProgress } = useMsal();
@@ -29,9 +33,7 @@ const Login: NextPage = () => {
       if (auth) {
         await router.push(msalConfig.auth.redirectUri || "/emails");
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch {}
   };
 
   return (
@@ -42,7 +44,7 @@ const Login: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        {!isAuthenticated && (
+        <UnauthenticatedTemplate>
           <div className="card flex h-full w-96 flex-col items-center bg-base-100 p-16 shadow-xl">
             <h1 className="pb-6 text-4xl font-medium">Login</h1>
             <div className="flex flex-col gap-4">
@@ -59,7 +61,7 @@ const Login: NextPage = () => {
               </button>
             </div>
           </div>
-        )}
+        </UnauthenticatedTemplate>
       </Layout>
     </>
   );

@@ -3,7 +3,7 @@ import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { Layout } from "@/components";
-import { useIsAuthenticated } from "@azure/msal-react";
+import { UnauthenticatedTemplate, useIsAuthenticated } from "@azure/msal-react";
 
 // eslint-disable-next-line @typescript-eslint/require-await
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -51,15 +51,17 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <h1 className="text-5xl font-bold">Next level emails!</h1>
-        <p className="py-8">
-          Empower your emails with advanced AI technology, ensuring efficient
-          and personalized communication. Try the ChartGPT Powered Email App
-          now!
-        </p>
-        <button className="btn-primary btn" onClick={handleClick}>
-          Get Started
-        </button>
+        <UnauthenticatedTemplate>
+          <h1 className="text-4xl font-bold">Next level emails!</h1>
+          <p className="py-8">
+            Empower your emails with advanced AI technology, ensuring efficient
+            and personalized communication. Try the ChartGPT Powered Email App
+            now!
+          </p>
+          <button className="btn-primary btn" onClick={handleClick}>
+            Get Started
+          </button>
+        </UnauthenticatedTemplate>
       </Layout>
     </>
   );
